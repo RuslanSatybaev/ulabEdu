@@ -13,16 +13,17 @@ package homework.task3;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(fuzzySearch("car", "ca6$$#_rtwheel"));
-        System.out.println(fuzzySearch("cwhl", "cartwheel"));
+        System.out.println(fuzzySearch("car", null));
+        System.out.println(fuzzySearch(null, "cartwheel"));
         System.out.println(fuzzySearch("cwhee", "cartwheel"));
         System.out.println(fuzzySearch("cartwheel", "cartwheel"));
         System.out.println(fuzzySearch("cwheeel", "cartwheel"));
-        System.out.println(fuzzySearch("lw", "cartwheel"));
+        System.out.println(fuzzySearch(null, "cartwheel"));
     }
 
     public static boolean fuzzySearch(String mainWord, String suggest) {
-        if (suggest.length() < mainWord.length()) {
+        if (mainWord == null && suggest == null) return true;
+        if (mainWord == null || suggest == null || (suggest.length() < mainWord.length())) {
             return false;
         }
 

@@ -55,7 +55,7 @@ public class Main {
     private static Person[] RAW_DATA = new Person[]{
             new Person(0, "Harry"),
             new Person(0, "Harry"), // дубликат
-            new Person(1, "Harry"), // тёзка
+            new Person(1, null), // тёзка
             new Person(2, "Harry"),
             new Person(3, "Emily"),
             new Person(4, "Jack"),
@@ -73,13 +73,17 @@ public class Main {
 
 
     private static void print(Person[] persons) {
-        Map<String, Integer> map = Arrays.stream(persons)
-                .distinct()
-                .sorted(Comparator.comparingInt(Person::getId))
-                .collect(groupingBy(Person::getName, Collectors.reducing(0, (x) -> 1, Integer::sum)));
-
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            System.out.printf("Key: %s  %nValue: %d%n", entry.getKey(), entry.getValue());
+        if (persons == null || persons.length == 0) {
+            System.out.println("Input arguments are equal to null");
+        } else {
+            Map<String, Integer> map = Arrays.stream(persons)
+                    .filter(person -> Objects.nonNull(person.name))
+                    .distinct()
+                    .sorted(Comparator.comparingInt(Person::getId))
+                    .collect(groupingBy(Person::getName, Collectors.reducing(0, (x) -> 1, Integer::sum)));
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                System.out.printf("Key: %s  %nValue: %d%n", entry.getKey(), entry.getValue());
+            }
         }
     }
 }

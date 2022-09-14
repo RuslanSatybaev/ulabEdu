@@ -7,20 +7,25 @@ import java.util.HashMap;
  */
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {5, 7, 2, 5, 3, 1};
-        int sum = 9;
+        Integer[] nums = {5, 7, 2, 5, 3, 1};
+        Integer sum = 9;
         findPair(nums, sum);
     }
-    public static void findPair(int[] nums, int sum) {
-        var map = new HashMap<Integer, Integer>();
-        for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(sum - nums[i])) {
-                System.out.printf("Pair found [%d, %d]",
-                        nums[map.get(sum - nums[i])], nums[i]);
-              return;
+
+    public static void findPair(Integer[] nums, Integer sum) {
+        if (nums == null || sum == null) {
+            System.out.println("Input arguments are equal to null");
+        }else {
+            var map = new HashMap<Integer, Integer>();
+            for (int i = 0; i < nums.length; i++) {
+                if (map.containsKey(sum - nums[i])) {
+                    System.out.printf("Pair found [%d, %d]",
+                            nums[map.get(sum - nums[i])], nums[i]);
+                    return;
+                }
+                map.put(nums[i], i);
             }
-            map.put(nums[i], i);
+            System.out.println("Pair not found");
         }
-        System.out.println("Pair not found");
     }
 }
